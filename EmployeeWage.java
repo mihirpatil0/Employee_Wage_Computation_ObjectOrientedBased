@@ -4,7 +4,8 @@ import java.util.Random;
 
 public class EmployeeWage
 {	
-	public static final int EMP_PRESENT = 1;
+	public static final int EMP_PRESENT = 2;
+	public static final int EMP_PARTTIME_PRESENT = 1;
 	public static final int EMP_WAGE_PER_HR = 20;
 	
 	public static int employeeHours;
@@ -27,13 +28,18 @@ public class EmployeeWage
 	public int employeePresentAbsent() 
 	{
 		Random random = new Random();
-		int randomNumber = random.nextInt(2);
+		int randomNumber = random.nextInt(3);
 		
 		if(EMP_PRESENT == randomNumber) 
 		{
 			System.out.println("Employee Is Present.");
 			employeeHours = 8;
 			
+		}
+		else if(EMP_PARTTIME_PRESENT == randomNumber)
+		{
+			System.out.println("Employee Is Part Time Present.");
+			employeeHours = 4;
 		}
 		else
 		{
@@ -48,7 +54,6 @@ public class EmployeeWage
 	 * @param EMP_WAGE_PER_HR
 	 * Calculating: Daily wage.
 	 * Wage per/hr is 20.
-	 * Full day is of 8/hrs
 	 */
 	public void employeeDailyWage(int EMP_WAGE_PER_HR, int employeeHours) 
 	{
