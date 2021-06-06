@@ -6,6 +6,7 @@ public class EmployeeWage
 {	
 	public static final int EMP_PRESENT = 2;
 	public static final int EMP_PARTTIME_PRESENT = 1;
+	public static final int EMP_ABSENT = 0;
 	public static final int EMP_WAGE_PER_HR = 20;
 	
 	public static int employeeHours;
@@ -30,21 +31,28 @@ public class EmployeeWage
 		Random random = new Random();
 		int randomNumber = random.nextInt(3);
 		
-		if(EMP_PRESENT == randomNumber) 
+		switch (randomNumber) 
 		{
-			System.out.println("Employee Is Present.");
-			employeeHours = 8;
-			
-		}
-		else if(EMP_PARTTIME_PRESENT == randomNumber)
-		{
-			System.out.println("Employee Is Part Time Present.");
-			employeeHours = 4;
-		}
-		else
-		{
-			System.out.println("Employee Is Absent.");
-			employeeHours = 0;
+			case EMP_PRESENT: 
+			{
+				System.out.println("Employee Is Full Time Present.");
+				employeeHours = 8;
+				break;
+			}
+			case EMP_PARTTIME_PRESENT: 
+			{
+				System.out.println("Employee Is Part Time Present.");
+				employeeHours = 4;
+				break;
+			}
+			case EMP_ABSENT: 
+			{
+				System.out.println("Employee Is Absent.");
+				employeeHours = 0;
+				break;
+			}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + randomNumber);
 		}
 		return employeeHours;
 	}
