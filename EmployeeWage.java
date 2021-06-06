@@ -8,9 +8,11 @@ public class EmployeeWage
 	public static final int EMP_PARTTIME_PRESENT = 1;
 	public static final int EMP_ABSENT = 0;
 	public static final int EMP_WAGE_PER_HR = 20;
+	public static final int DAY_IN_MONTH = 20;
 	
 	public static int employeeHours;
-	public int dailyWage;
+	public static int dailyWage;
+	public int monthlyWage;
 	
 	
 	/**
@@ -63,10 +65,21 @@ public class EmployeeWage
 	 * Calculating: Daily wage.
 	 * Wage per/hr is 20.
 	 */
-	public void employeeDailyWage(int EMP_WAGE_PER_HR, int employeeHours) 
+	public int employeeDailyWage(int EMP_WAGE_PER_HR, int employeeHours) 
 	{
 		dailyWage = (EMP_WAGE_PER_HR * employeeHours);
 		System.out.println("Employee daily wage is : "+dailyWage);
+		return dailyWage;
+	}
+	
+	/**
+	 * @param dailyWage
+	 * Calculating: Monthly wage.
+	 */
+	public void employeeMonthlyWage(int dailyWage)
+	{
+		monthlyWage = (DAY_IN_MONTH * dailyWage);
+		System.out.println("Employee monthly wage is : "+monthlyWage);
 	}
 	
 	/**
@@ -80,5 +93,6 @@ public class EmployeeWage
 		employeeWageObj.welcomeMessage();
 		employeeWageObj.employeePresentAbsent();
 		employeeWageObj.employeeDailyWage(EMP_WAGE_PER_HR,employeeHours);
+		employeeWageObj.employeeMonthlyWage(dailyWage);
 	}
 }
