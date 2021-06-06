@@ -9,12 +9,14 @@ public class EmployeeWage
 	public static final int EMP_ABSENT = 0;
 	public static final int EMP_WAGE_PER_HR = 20;
 	public static final int DAY_IN_MONTH = 20;
+	public static final int MAX_HR_IN_MONTH = 100;
 	
-	public static int employeeHours;
-	public static int dailyWage;
+	public int employeeHours = 0;
+	public int totalEmployeeHours = 0;
+	public int totalWorkingDays = 0;
+	public int dailyWage;
 	public int monthlyWage;
-	
-	
+		
 	/**
 	 * Displaying Welcome Message.
 	 */
@@ -24,62 +26,46 @@ public class EmployeeWage
 	}
 	
 	/**
-	 * Checking Employee is present or absent.
+	 * Checking Employee is full time present, part time present or absent.
 	 * Using RANDOM() to attendance check.
-	 * @return 
+	 * Checking for employee working for 100hr or 20 days in a month.
+	 * Calculating Daily wage.
+	 * Calculating monthly wage according to 100hr or 20 days condition.
 	 */
-	public int employeePresentAbsent() 
-	{
-		Random random = new Random();
-		int randomNumber = random.nextInt(3);
-		
-		switch (randomNumber) 
-		{
-			case EMP_PRESENT: 
+	public void employeePresentAbsent() 
+	{	
+		while(totalEmployeeHours < MAX_HR_IN_MONTH && totalWorkingDays < DAY_IN_MONTH) 
+		{	
+			totalWorkingDays ++;
+			Random random = new Random();
+			int randomNumber = random.nextInt(3);
+			
+			switch (randomNumber) 
 			{
-				System.out.println("Employee Is Full Time Present.");
-				employeeHours = 8;
-				break;
+				case EMP_PRESENT: 
+				{
+					employeeHours = 8;
+					break;
+				}
+				case EMP_PARTTIME_PRESENT: 
+				{
+					employeeHours = 4;
+					break;
+				}
+				case EMP_ABSENT: 
+				{
+					employeeHours = 0;
+					break;
+				}
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + randomNumber);
 			}
-			case EMP_PARTTIME_PRESENT: 
-			{
-				System.out.println("Employee Is Part Time Present.");
-				employeeHours = 4;
-				break;
-			}
-			case EMP_ABSENT: 
-			{
-				System.out.println("Employee Is Absent.");
-				employeeHours = 0;
-				break;
-			}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + randomNumber);
+			totalEmployeeHours += employeeHours;
+			dailyWage = EMP_WAGE_PER_HR * employeeHours;
+			System.out.println("Employee daily wage is : " + dailyWage + " Rs");
+			monthlyWage += dailyWage;
 		}
-		return employeeHours;
-	}
-	
-	/**
-	 * @param employeeHour
-	 * @param EMP_WAGE_PER_HR
-	 * Calculating: Daily wage.
-	 * Wage per/hr is 20.
-	 */
-	public int employeeDailyWage(int EMP_WAGE_PER_HR, int employeeHours) 
-	{
-		dailyWage = (EMP_WAGE_PER_HR * employeeHours);
-		System.out.println("Employee daily wage is : "+dailyWage);
-		return dailyWage;
-	}
-	
-	/**
-	 * @param dailyWage
-	 * Calculating: Monthly wage.
-	 */
-	public void employeeMonthlyWage(int dailyWage)
-	{
-		monthlyWage = (DAY_IN_MONTH * dailyWage);
-		System.out.println("Employee monthly wage is : "+monthlyWage);
+		System.out.println("Employee monthly wage is : " + monthlyWage + " Rs for " + totalEmployeeHours + " Hr" + " and " + totalWorkingDays + " working days." );
 	}
 	
 	/**
@@ -92,7 +78,5 @@ public class EmployeeWage
 		EmployeeWage employeeWageObj = new EmployeeWage();
 		employeeWageObj.welcomeMessage();
 		employeeWageObj.employeePresentAbsent();
-		employeeWageObj.employeeDailyWage(EMP_WAGE_PER_HR,employeeHours);
-		employeeWageObj.employeeMonthlyWage(dailyWage);
 	}
 }
