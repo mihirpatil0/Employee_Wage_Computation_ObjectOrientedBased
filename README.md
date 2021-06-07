@@ -1,2 +1,2 @@
 # Employee_Wage_Computation_ObjectOrientedBased
-Computing employee wage with object oriented programing approach (JAVA) .
+Computing employee's daily and monthly wage for different companies. 
