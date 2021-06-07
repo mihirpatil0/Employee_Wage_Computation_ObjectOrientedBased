@@ -7,15 +7,6 @@ public class EmployeeWage
 	public static final int EMP_PRESENT = 2;
 	public static final int EMP_PARTTIME_PRESENT = 1;
 	public static final int EMP_ABSENT = 0;
-	public static final int EMP_WAGE_PER_HR = 20;
-	public static final int DAY_IN_MONTH = 20;
-	public static final int MAX_HR_IN_MONTH = 100;
-	
-	public int employeeHours = 0;
-	public int totalEmployeeHours = 0;
-	public int totalWorkingDays = 0;
-	public int dailyWage;
-	public int monthlyWage;
 		
 	/**
 	 * Displaying Welcome Message.
@@ -28,13 +19,13 @@ public class EmployeeWage
 	/**
 	 * Checking Employee is full time present, part time present or absent.
 	 * Using RANDOM() to attendance check.
-	 * Checking for employee working for 100hr or 20 days in a month.
-	 * Calculating Daily wage.
-	 * Calculating monthly wage according to 100hr or 20 days condition.
+	 * Accepting values from method call.
 	 */
-	public void employeePresentAbsent() 
+	public void employeePresentAbsent(String company, int employeeWagePerHr, int daysInMonth, int maxHrsInMonth) 
 	{	
-		while(totalEmployeeHours < MAX_HR_IN_MONTH && totalWorkingDays < DAY_IN_MONTH) 
+		int employeeHours = 0, totalEmployeeHours = 0, totalWorkingDays = 0, dailyWage, monthlyWage = 0;
+		
+		while(totalEmployeeHours < maxHrsInMonth && totalWorkingDays < daysInMonth) 
 		{	
 			totalWorkingDays ++;
 			Random random = new Random();
@@ -61,22 +52,27 @@ public class EmployeeWage
 				throw new IllegalArgumentException("Unexpected value: " + randomNumber);
 			}
 			totalEmployeeHours += employeeHours;
-			dailyWage = EMP_WAGE_PER_HR * employeeHours;
-			System.out.println("Employee daily wage is : " + dailyWage + " Rs");
+			dailyWage = employeeWagePerHr * employeeHours;
+			//System.out.println("Employee daily wage is : " + dailyWage + " Rs");
 			monthlyWage += dailyWage;
 		}
-		System.out.println("Employee monthly wage is : " + monthlyWage + " Rs for " + totalEmployeeHours + " Hr" + " and " + totalWorkingDays + " working days." );
+		System.out.println("Employee monthly wage for Company " + company + " " + " is: "+ monthlyWage + " " + " Rs. for" + " " + totalEmployeeHours + " Hr" + " and " + totalWorkingDays + " working days." );
 	}
 	
 	/**
 	 * @param args
 	 * Creating objects of a class.
-	 * Calling different methods with objects if not static. 
+	 * Calling different methods with objects if not static.
+	 * Passing values while calling method.
 	 */
 	public static void main(String[] args)
 	{
 		EmployeeWage employeeWageObj = new EmployeeWage();
 		employeeWageObj.welcomeMessage();
-		employeeWageObj.employeePresentAbsent();
+		EmployeeWage relianceObject = new EmployeeWage();
+		relianceObject.employeePresentAbsent("Reliance", 20, 20, 100);
+		EmployeeWage tcsObject = new EmployeeWage();
+		tcsObject.employeePresentAbsent("TCS", 10, 15, 80);
+		
 	}
 }
