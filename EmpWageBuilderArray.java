@@ -2,7 +2,7 @@ package empwageobjectbased;
 
 import java.util.Random;
 
-public class EmpWageBuilderArray
+public class EmpWageBuilderArray implements IComputeEmpWage
 {	
 	public static final int EMP_PRESENT = 2;
 	public static final int EMP_PARTTIME_PRESENT = 1;
@@ -16,13 +16,13 @@ public class EmpWageBuilderArray
 		companyEmpWagesArray = new CompanyEmpWage[5];
 	}
 	
-	private void addCompanyEmpWage(String company, int employeeWagePerHr, int daysInMonth, int maxHrsInMonth)
+	public void addCompanyEmpWage(String company, int employeeWagePerHr, int daysInMonth, int maxHrsInMonth)
 	{
 		companyEmpWagesArray[numberOfCompany] = new CompanyEmpWage(company, employeeWagePerHr, daysInMonth, maxHrsInMonth);
 		numberOfCompany++;
 	}
 	
-	private void computeEmployeeWage()
+	public void computeEmployeeWage()
 	{
 		for(int i = 0; i < numberOfCompany; i++ )
 		{
