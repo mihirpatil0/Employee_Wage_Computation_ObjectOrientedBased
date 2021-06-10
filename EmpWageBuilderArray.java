@@ -1,6 +1,8 @@
 package empwageobjectbased;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Random;
 
 public class EmpWageBuilderArray implements IComputeEmpWage
@@ -11,10 +13,15 @@ public class EmpWageBuilderArray implements IComputeEmpWage
 	
 	private int numberOfCompany = 0;
 	private LinkedList<CompanyEmpWage> companyEmpWagesList;
+	private Map<String,CompanyEmpWage> companyEmpWagesMap;
 	
+	/**
+	 * Constructor initializing LinkedList and HashMap.
+	 */
 	public EmpWageBuilderArray()
 	{
 		companyEmpWagesList = new LinkedList<>();
+		companyEmpWagesMap = new HashMap();
 	}
 	
 	public void addCompanyEmpWage(String company, int employeeWagePerHr, int daysInMonth, int maxHrsInMonth)
@@ -22,6 +29,7 @@ public class EmpWageBuilderArray implements IComputeEmpWage
 		CompanyEmpWage companyEmpWage = new CompanyEmpWage(company, employeeWagePerHr, daysInMonth, maxHrsInMonth);
 		
 		companyEmpWagesList.add(companyEmpWage);
+		companyEmpWagesMap.put(company, companyEmpWage);
 	}
 	
 	public void computeEmployeeWage()
@@ -74,6 +82,14 @@ public class EmpWageBuilderArray implements IComputeEmpWage
 		}
 		return totalEmployeeHours * companyEmpWage.EMPLOYEE_WAGE_PER_HR;
 	}
+	 
+	 /**
+	 *Method for total employee wage.
+	 */
+	public int getTotalWage(String company)
+	 {
+		 return companyEmpWagesMap.get(company).monthlyWage;
+	 }
 	
 	/**
 	 * @param args
@@ -87,6 +103,6 @@ public class EmpWageBuilderArray implements IComputeEmpWage
 		empWageBuilder.addCompanyEmpWage("Reliance", 20, 25, 100);
 		empWageBuilder.addCompanyEmpWage("Bata", 18, 20, 86);
 		empWageBuilder.computeEmployeeWage();
-		
+		System.out.println("Total Wage for Bata Company: "+empWageBuilder.getTotalWage("Bata"));
 	}
 }
