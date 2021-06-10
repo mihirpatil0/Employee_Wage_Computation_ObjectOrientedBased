@@ -1,5 +1,6 @@
 package empwageobjectbased;
 
+import java.util.LinkedList;
 import java.util.Random;
 
 public class EmpWageBuilderArray implements IComputeEmpWage
@@ -9,25 +10,27 @@ public class EmpWageBuilderArray implements IComputeEmpWage
 	public static final int EMP_ABSENT = 0;
 	
 	private int numberOfCompany = 0;
-	private CompanyEmpWage[] companyEmpWagesArray;
+	private LinkedList<CompanyEmpWage> companyEmpWagesList;
 	
 	public EmpWageBuilderArray()
 	{
-		companyEmpWagesArray = new CompanyEmpWage[5];
+		companyEmpWagesList = new LinkedList<>();
 	}
 	
 	public void addCompanyEmpWage(String company, int employeeWagePerHr, int daysInMonth, int maxHrsInMonth)
 	{
-		companyEmpWagesArray[numberOfCompany] = new CompanyEmpWage(company, employeeWagePerHr, daysInMonth, maxHrsInMonth);
-		numberOfCompany++;
+		CompanyEmpWage companyEmpWage = new CompanyEmpWage(company, employeeWagePerHr, daysInMonth, maxHrsInMonth);
+		
+		companyEmpWagesList.add(companyEmpWage);
 	}
 	
 	public void computeEmployeeWage()
 	{
-		for(int i = 0; i < numberOfCompany; i++ )
+		for(int i = 0; i < companyEmpWagesList.size(); i++ )
 		{
-			companyEmpWagesArray[i].setTotalEmpWage(this.computeEmployeeWage(companyEmpWagesArray[i]));
-			System.out.println(companyEmpWagesArray[i]);
+			CompanyEmpWage companyEmpWage = companyEmpWagesList.get(i);
+			companyEmpWage.setTotalEmpWage(this.computeEmployeeWage(companyEmpWage));
+			System.out.println(companyEmpWage);
 		}
 	}
 	
@@ -80,7 +83,7 @@ public class EmpWageBuilderArray implements IComputeEmpWage
 	 */
 	public static void main(String[] args)
 	{	
-		EmpWageBuilderArray empWageBuilder = new EmpWageBuilderArray();
+		IComputeEmpWage empWageBuilder = new EmpWageBuilderArray();
 		empWageBuilder.addCompanyEmpWage("Reliance", 20, 25, 100);
 		empWageBuilder.addCompanyEmpWage("Bata", 18, 20, 86);
 		empWageBuilder.computeEmployeeWage();
